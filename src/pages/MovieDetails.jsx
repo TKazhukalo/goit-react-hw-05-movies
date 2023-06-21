@@ -1,6 +1,6 @@
 //import { useParams } from "react-router-dom"
 
-import { useParams } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
 
 export const MovieDetails = () => {
     const {movieId} = useParams();
@@ -12,14 +12,15 @@ export const MovieDetails = () => {
         <h2>
           Movie 
         </h2>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus
-          sunt excepturi nesciunt iusto dignissimos assumenda ab quae cupiditate
-          a, sed reprehenderit? Deleniti optio quasi, amet natus reiciendis
-          atque fuga dolore? Lorem, ipsum dolor sit amet consectetur adipisicing
-          elit. Impedit suscipit quisquam incidunt commodi fugiat aliquam
-          praesentium ipsum quos unde voluptatum?
-        </p>
+                <ul>
+                    <li>
+                        <Link to='cast'>Cast</Link>
+                    </li>
+                    <li>
+                        <Link to='reviews'>Reviews</Link>
+                    </li>
+                </ul>
+                <Outlet />
       </div>
     </main>
     )
