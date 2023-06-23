@@ -1,30 +1,39 @@
 //import { useParams } from "react-router-dom"
 
+
 import { getDetails } from "components/apiMovies";
 import { Suspense, useEffect, useState } from "react";
 import { Link, Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
+import { ContainerDetails } from "./MovieDetails.styled";
+import Loader from "components/Loader";
 
 export const MovieDetails = () => {
-    const {movieId} = useParams();
-    console.log(movieId);
-    //const movie = getDetails(movieId);
+    
+
     const [movie, setMovie] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const {movieId} = useParams();
+
     const location = useLocation();
     const navigate = useNavigate();
-   // console.log(movie);
-useEffect(() => {
-    const fetchMovies = async () => {
-      try {
-        const movie = await getDetails(movieId);
-        setMovie(movie);
-      } catch (error) {
-        console.log(error);
-      } 
-    };
+    useEffect(() => {
+        const fetchMovies = async () => {
+            try {
+                const movie = await getDetails(movieId);
+                setMovie(movie);
+                setLoading(true);
+            } catch (error) {
+                console.log(error);
+            } finally {
+         
+                setLoading(false);
+            }
+        }
+ 
     fetchMovies();
   }, [movieId]);
     if (!movie) {
-        return `null`;
+        return  ;
     }
    const { 
        genres,
@@ -37,23 +46,25 @@ useEffect(() => {
 const genresList = genres?.map(genre => genre.name).join(', ');
     return (
           <main>
-      <div>
+            <div>
+                   
                 <button onClick={() => {
                       navigate(location.state?.from ??'/');
         }}>
-          Go back 
+          &larr;Go back 
                 </button>
+                 {loading && <Loader />}
                   <div>
         <img width="250" src={poster_path?`https://image.tmdb.org/t/p/w500${poster_path}`
                 : `https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg`} alt={title} />
-        <div>
+        <ContainerDetails>
           <h2>{title}</h2>
           <p>User Score: {(vote_average * 10).toFixed()} %</p>
           <h3>Overview</h3>
           <p>{overview}</p>
           <h4>Genres</h4>
           <p>{genresList}</p>
-        </div>
+        </ContainerDetails>
       </div>
       <h3>Additional information</h3>
                 <ul>
