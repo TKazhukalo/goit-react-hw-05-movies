@@ -6,7 +6,11 @@ const linkLib = axios.create({
   params: { api_key },
 });
 
-export const listMoviesTrending = async () => {
+export const getTrending = async () => {
   const { data } = await linkLib.get('trending/movie/day');
   return data.results;
 };
+export const getDetails = async (id) => {
+    const { data } = await linkLib.get(`movie/${id}`);
+    return data;
+}

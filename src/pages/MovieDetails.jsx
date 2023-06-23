@@ -1,17 +1,61 @@
 //import { useParams } from "react-router-dom"
 
-import { Link, Outlet, useParams } from "react-router-dom";
+import { getDetails } from "components/apiMovies";
+import { Suspense, useEffect, useState } from "react";
+import { Link, Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 
 export const MovieDetails = () => {
     const {movieId} = useParams();
     console.log(movieId);
-   // const movie = getMovieById(id);
+    //const movie = getDetails(movieId);
+    const [movie, setMovie] = useState(null);
+    const location = useLocation();
+    const navigate = useNavigate();
+   // console.log(movie);
+useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const movie = await getDetails(movieId);
+        setMovie(movie);
+      } catch (error) {
+        console.log(error);
+      } 
+    };
+    fetchMovies();
+  }, [movieId]);
+    if (!movie) {
+        return `null`;
+    }
+   const { 
+       genres,
+        title, 
+        poster_path, 
+        overview, 
+        vote_average, 
+        } = movie;
+
+const genresList = genres?.map(genre => genre.name).join(', ');
     return (
           <main>
       <div>
-        <h2>
-          Movie 
-        </h2>
+                <button onClick={() => {
+                      navigate(location.state?.from ??'/');
+        }}>
+          Go back 
+                </button>
+                  <div>
+        <img width="250" src={poster_path?`https://image.tmdb.org/t/p/w500${poster_path}`
+                : `https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg`} alt={title} />
+        <div>
+          <h2>{title}</h2>
+          <p>User Score: {(vote_average * 10).toFixed()} %</p>
+          <h3>Overview</h3>
+          <p>{overview}</p>
+          <h4>Genres</h4>
+          <p>{genresList}</p>
+        </div>
+      </div>
+      <h3>Additional information</h3>
                 <ul>
                     <li>
                         <Link to='cast'>Cast</Link>
@@ -20,8 +64,11 @@ export const MovieDetails = () => {
                         <Link to='reviews'>Reviews</Link>
                     </li>
                 </ul>
-                <Outlet />
-      </div>
+                 </div>
+                    <Suspense fallback={<div>...Loading</div>}>
+                    <Outlet />
+                    </Suspense>
+     
     </main>
     )
 }

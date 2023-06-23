@@ -1,15 +1,17 @@
 import {Home}   from "pages/Home";
-import { MovieDetails } from "pages/MovieDetails";
+import {MovieDetails}  from "pages/MovieDetails";
 import { Movies } from "pages/Movies";
 import { Route,Routes } from "react-router-dom";
 import { Container } from "./App.styled";
 import { Layout } from "./Layout";
 import { Cast } from "./Cast";
 import { Reviews } from "./Reviews";
+import { Suspense } from "react";
 
 
 export const App = () => {
   return (
+    <Suspense fallback={<div>...Loading</div>}>
     <Container>
       
       <Routes>
@@ -23,6 +25,7 @@ export const App = () => {
           </Route>
         </Route>
       </Routes>
-    </Container>
+      </Container>
+      </Suspense>
   );
 };
