@@ -46,7 +46,7 @@ import { ButtonSearch, SearchQuery } from "./Movies.styled";
               <ButtonSearch>Search</ButtonSearch>
           </form>
           {loading && <Loader />}
-         { movies.length>0 &&<MoviesList movies={movies} />}
+         { movies.length > 0 && <MoviesList movies={movies} />}
         </div>
 
   );

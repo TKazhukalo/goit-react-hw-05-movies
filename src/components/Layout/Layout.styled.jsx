@@ -26,7 +26,9 @@ export const HeaderList=styled.ul`
 export const HeaderItem=styled.li` 
     font-size: 20px;
     font-weight: 600; 
+    
 `
 export const HeaderItemLink=styled(NavLink)`
    text-decoration:none; 
+   color: green;
 `
