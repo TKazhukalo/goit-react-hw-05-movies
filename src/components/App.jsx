@@ -8,6 +8,11 @@ import { Cast } from "./Cast";
 import { Reviews } from "./Reviews";
 import { Suspense } from "react";
 
+// const Cast = lazy(() => import('components/Cast/Cast'));
+// const Reviews = lazy(() => import('components/Reviews/Reviews'));
+// const Home = lazy(() => import('pages/Home/Home'));
+// const MovieDetails = lazy(() => import('pages/MovieDetails/MovieDetails'));
+// const Movies = lazy(() => import('pages/Movies/Movies'));
 
 export const App = () => {
   return (

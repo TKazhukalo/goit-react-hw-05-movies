@@ -1,16 +1,43 @@
-import { Link } from "react-router-dom";
+import { MoviesList } from "components/MoviesList";
+import { searchMovie } from "components/apiMovies";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+
 
 export const Movies = () => {
- // const movies = getMovies();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [movies, setMovies] = useState([]);
+    const query = searchParams.get('query');
+
+    useEffect(() => {
+    if (!query) return;
+    const fetchMovies = async () => {
+      try {
+        const movies = await searchMovie(query);
+        setMovies(movies);
+        } catch (error) {
+        console.log(error);
+      } finally {
+      }
+    };
+    fetchMovies();
+    }, [query]);
+    const handleSubmit = e => {
+        e.preventDefault();
+        setSearchParams({ query: e.target.elements.query.value });
+        e.target.reset();
+    }
   return (
   
-          <div>Колекція фільмів
-              {['movie-1', 'movie-2', 'movie-3', 'movie-4', 'movie-5'].map(movie => {
-              return (
-          <Link key={movie} to={`${movie}`}>{movie} </Link>
-              )
-              })}
-              </div>
+      <div>
+     <h2>Find movie by name</h2>
+          <form onSubmit={handleSubmit}>
+              <input type="text"
+                  name='query' />
+              <button>Search</button>
+          </form>
+         { movies.length>0 &&<MoviesList movies={movies} />}
+        </div>
 
   );
 };

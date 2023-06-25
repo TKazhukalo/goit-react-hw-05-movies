@@ -11,6 +11,22 @@ export const getTrending = async () => {
   return data.results;
 };
 export const getDetails = async (id) => {
-    const { data } = await linkLib.get(`movie/${id}`);
-    return data;
+  const { data } = await linkLib.get(`movie/${id}`);
+  return data;
+};
+export const getCredits = async (id) => {
+  const { data } = await linkLib.get(`movie/${id}/credits`);
+  return data.cast;
+}
+export const getReviews = async (id) => {
+  const { data } = await linkLib.get(`movie/${id}/reviews`);
+  return data.reviews;
+}
+export const searchMovie = async (query) => {
+  const { data } = await linkLib.get(`search/movie`, {
+    params: {
+      query,
+    }
+  });
+  return data.results;
 }

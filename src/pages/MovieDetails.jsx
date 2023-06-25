@@ -1,21 +1,14 @@
-//import { useParams } from "react-router-dom"
-
-
 import { getDetails } from "components/apiMovies";
 import { Suspense, useEffect, useState } from "react";
-import { Link, Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import { ContainerDetails } from "./MovieDetails.styled";
 import Loader from "components/Loader";
 
 export const MovieDetails = () => {
-    
-
     const [movie, setMovie] = useState(null);
     const [loading, setLoading] = useState(false);
     const {movieId} = useParams();
-
     const location = useLocation();
-    const navigate = useNavigate();
     useEffect(() => {
         const fetchMovies = async () => {
             try {
@@ -33,11 +26,12 @@ export const MovieDetails = () => {
     fetchMovies();
   }, [movieId]);
     if (!movie) {
-        return  ;
+        return;
     }
    const { 
-       genres,
+        genres,
         title, 
+        release_date,
         poster_path, 
         overview, 
         vote_average, 
@@ -47,18 +41,17 @@ const genresList = genres?.map(genre => genre.name).join(', ');
     return (
           <main>
             <div>
-                   
-                <button onClick={() => {
-                      navigate(location.state?.from ??'/');
-        }}>
+                  <Link to={location.state?.from ??'/'}>
+                <button type="button">
           &larr;Go back 
-                </button>
+                    </button>
+                </Link> 
                  {loading && <Loader />}
                   <div>
         <img width="250" src={poster_path?`https://image.tmdb.org/t/p/w500${poster_path}`
                 : `https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg`} alt={title} />
         <ContainerDetails>
-          <h2>{title}</h2>
+          <h2>{title} ({release_date.slice(0, 4)})</h2>
           <p>User Score: {(vote_average * 10).toFixed()} %</p>
           <h3>Overview</h3>
           <p>{overview}</p>
