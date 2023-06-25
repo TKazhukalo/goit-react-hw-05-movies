@@ -15,8 +15,6 @@ export const ContainerHeader = styled.div`
 export const ContainerNav=styled.nav`
     display: flex;
     align-items: center;
-   
-
 `
 export const HeaderList=styled.ul`
     display: flex;
@@ -25,8 +23,7 @@ export const HeaderList=styled.ul`
     gap:20px;
     color: #000000;
 `
-export const HeaderItem=styled.li`
-   
+export const HeaderItem=styled.li` 
     font-size: 20px;
     font-weight: 600; 
 `

@@ -4,10 +4,10 @@ import { getReviews } from "../api/apiMovies";
 import Loader from "../Loader/Loader";
 import { ReviewsList } from "./Reviews.styled";
 
-export const Reviews = () => {
+    const Reviews = () => {
     const { movieId } = useParams();
     const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
 
         const fetchMovies = async () => {
@@ -44,3 +44,4 @@ export const Reviews = () => {
            
     )
 }
+export default Reviews;

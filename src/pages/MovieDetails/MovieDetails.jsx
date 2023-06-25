@@ -4,21 +4,23 @@ import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import {  Button, ContainerDetails } from "./MovieDetails.styled";
 import Loader from "components/Loader/Loader";
 
-export const MovieDetails = () => {
+    const MovieDetails = () => {
     const [movie, setMovie] = useState(null);
     const [loading, setLoading] = useState(false);
     const {movieId} = useParams();
     const location = useLocation();
     useEffect(() => {
         const fetchMovies = async () => {
+            setLoading(true);
             try {
                 const movie = await getDetails(movieId);
-                setMovie(movie);
-                setLoading(true);
+                setMovie(movie); 
             } catch (error) {
                 console.log(error);
+                setMovie([]);
+                const errorMessage = "Фільм не знайдено";
+                return <p>{errorMessage }</p>
             } finally {
-         
                 setLoading(false);
             }
         }
@@ -41,9 +43,9 @@ const genresList = genres?.map(genre => genre.name).join(', ');
     return (
           <main>
             <div>
-                  <Link to={location.state?.from ??'/'}>
-                <Button type="button">
-          &larr; Go back 
+                <Link to={location.state?.from ??'/'}>
+                    <Button type="button">
+                &larr; Go back 
                     </Button>
                 </Link> 
                  {loading && <Loader />}
@@ -56,7 +58,9 @@ const genresList = genres?.map(genre => genre.name).join(', ');
           <h3>Overview</h3>
           <p>{overview}</p>
           <h4>Genres</h4>
-          <p>{genresList}</p>
+          <p>
+            <span>{genresList}</span>
+          </p>
         </ContainerDetails>
       </div>
       <h3>Additional information</h3>
@@ -75,3 +79,4 @@ const genresList = genres?.map(genre => genre.name).join(', ');
     </main>
     )
 }
+export default MovieDetails;

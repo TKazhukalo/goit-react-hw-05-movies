@@ -4,8 +4,7 @@ export const ContainerDetails = styled.div`
     border-bottom: 1px solid #0ad066;
     
 `;
-export const Button=styled.button`
-    
+export const Button=styled.button` 
     width: 100px;
     height: 40px;
     border: none;

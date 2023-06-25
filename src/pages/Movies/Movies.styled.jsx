@@ -15,9 +15,9 @@ export const ButtonSearch=styled.button`
     color: black;
     background-color: #28d03e;
      &:hover
-        {
+    {
    
-            background-color: #2fe247;
-            box-shadow: 0 0 0 1px #76f752, 0 0 10px #333;
-        }
+        background-color: #2fe247;
+        box-shadow: 0 0 0 1px #76f752, 0 0 10px #333;
+    }
 `

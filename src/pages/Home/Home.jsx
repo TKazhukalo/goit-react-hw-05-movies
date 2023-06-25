@@ -4,8 +4,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Loader from "components/Loader/Loader";
 
-
-export const Home=()=> {
+ const Home=()=> {
   const [movies, setMovies] = useState([]);
   const [loading, setloading] = useState(false);
   useEffect(() => {
@@ -17,8 +16,7 @@ export const Home=()=> {
       } catch (error) {
         console.log(error);
       } finally {
- setloading(false);
-    
+          setloading(false);
       }
     };
     fetchMovies();
@@ -28,7 +26,8 @@ export const Home=()=> {
     <div>
       <h2>Trending today</h2>
       {movies.length !== 0 && <MoviesList movies={movies} />}
-   {loading &&<Loader />}
+   {loading && <Loader />}
     </div>
   );
 }
+export default Home;

@@ -6,17 +6,17 @@ import { useSearchParams } from "react-router-dom";
 import { ButtonSearch, SearchQuery } from "./Movies.styled";
 
 
-export const Movies = () => {
+    const Movies = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(false);
     const query = searchParams.get('query');
 
     useEffect(() => {
-    if (!query) return;
-    const fetchMovies = async () => {
-        try {
-            setLoading(true);
+        if (!query) return;
+        const fetchMovies = async () => {
+            try {
+                setLoading(true);
             const movies = await searchMovie(query);
             if (movies.length === 0) {
                 return `Введіть назву фільма`;
@@ -32,7 +32,8 @@ export const Movies = () => {
     }, [query]);
     const handleSubmit = e => {
         e.preventDefault();
-        setSearchParams({ query: e.target.elements.query.value.trim() });
+        const { value } = e.target.elements.query;
+        setSearchParams({ query: value.trim() });
         e.target.reset();
     }
   return (
@@ -50,3 +51,4 @@ export const Movies = () => {
 
   );
 };
+export default Movies;

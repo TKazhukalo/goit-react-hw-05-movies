@@ -5,14 +5,12 @@ import Loader from "../Loader/Loader";
 import { CastItem, CastList } from "./Cast.styled";
 import { Container } from "../App/App.styled";
 
-
-export const Cast = () => {
+const Cast = () => {
     const { movieId } = useParams();
     const [cast, setCast] = useState([]);
     const [loading, setLoading] = useState(false);
     useEffect(() => {
         const fetchMovies = async () => {
-            
             try {
                 setLoading(true);
                 const cast = await getCredits(movieId);
@@ -47,3 +45,4 @@ export const Cast = () => {
             </Container>
     )
 }
+export default Cast;
