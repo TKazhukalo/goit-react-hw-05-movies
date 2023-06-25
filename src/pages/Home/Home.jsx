@@ -1,6 +1,5 @@
 import { getTrending } from "components/api/apiMovies";
 import {MoviesList}  from "../../components/MoviesList/MoviesList";
-//import { listMoviesTrending } from "components/apiMovies";
 import { useState } from "react";
 import { useEffect } from "react";
 import Loader from "components/Loader/Loader";
@@ -19,7 +18,7 @@ export const Home=()=> {
         console.log(error);
       } finally {
  setloading(false);
-       //console.log('finally');
+    
       }
     };
     fetchMovies();
