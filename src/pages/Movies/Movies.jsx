@@ -1,30 +1,38 @@
-import { MoviesList } from "components/MoviesList";
-import { searchMovie } from "components/apiMovies";
+import Loader from "components/Loader/Loader";
+import { MoviesList } from "components/MoviesList/MoviesList";
+import { searchMovie } from "components/api/apiMovies";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { ButtonSearch, SearchQuery } from "./Movies.styled";
 
 
 export const Movies = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [movies, setMovies] = useState([]);
+    const [loading, setLoading] = useState(false);
     const query = searchParams.get('query');
 
     useEffect(() => {
     if (!query) return;
     const fetchMovies = async () => {
-      try {
-        const movies = await searchMovie(query);
+        try {
+            setLoading(true);
+            const movies = await searchMovie(query);
+            if (movies.length === 0) {
+                return `Введіть назву фільма`;
+            }
         setMovies(movies);
         } catch (error) {
         console.log(error);
-      } finally {
+        } finally {
+             setLoading(false);
       }
     };
     fetchMovies();
     }, [query]);
     const handleSubmit = e => {
         e.preventDefault();
-        setSearchParams({ query: e.target.elements.query.value });
+        setSearchParams({ query: e.target.elements.query.value.trim() });
         e.target.reset();
     }
   return (
@@ -32,10 +40,11 @@ export const Movies = () => {
       <div>
      <h2>Find movie by name</h2>
           <form onSubmit={handleSubmit}>
-              <input type="text"
+              <SearchQuery type="text"
                   name='query' />
-              <button>Search</button>
+              <ButtonSearch>Search</ButtonSearch>
           </form>
+          {loading && <Loader />}
          { movies.length>0 &&<MoviesList movies={movies} />}
         </div>
 

@@ -1,8 +1,8 @@
-import { getDetails } from "components/apiMovies";
+import { getDetails } from "components/api/apiMovies";
 import { Suspense, useEffect, useState } from "react";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
-import { ContainerDetails } from "./MovieDetails.styled";
-import Loader from "components/Loader";
+import {  Button, ContainerDetails } from "./MovieDetails.styled";
+import Loader from "components/Loader/Loader";
 
 export const MovieDetails = () => {
     const [movie, setMovie] = useState(null);
@@ -42,9 +42,9 @@ const genresList = genres?.map(genre => genre.name).join(', ');
           <main>
             <div>
                   <Link to={location.state?.from ??'/'}>
-                <button type="button">
-          &larr;Go back 
-                    </button>
+                <Button type="button">
+          &larr; Go back 
+                    </Button>
                 </Link> 
                  {loading && <Loader />}
                   <div>
@@ -67,12 +67,11 @@ const genresList = genres?.map(genre => genre.name).join(', ');
                     <li>
                         <Link to='reviews'>Reviews</Link>
                     </li>
-                </ul>
-                 </div>
-                    <Suspense fallback={<div>...Loading</div>}>
-                    <Outlet />
-                    </Suspense>
-     
+                </ul>             
+            </div>
+            <Suspense fallback={<div>...Loading</div>}>
+                <Outlet />   
+            </Suspense>   
     </main>
     )
 }

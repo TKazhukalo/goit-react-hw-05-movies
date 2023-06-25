@@ -14,13 +14,14 @@ export const getDetails = async (id) => {
   const { data } = await linkLib.get(`movie/${id}`);
   return data;
 };
-export const getCredits = async (id) => {
+
+export const getCredits = async id => {
   const { data } = await linkLib.get(`movie/${id}/credits`);
   return data.cast;
 }
 export const getReviews = async (id) => {
   const { data } = await linkLib.get(`movie/${id}/reviews`);
-  return data.reviews;
+  return data.results;
 }
 export const searchMovie = async (query) => {
   const { data } = await linkLib.get(`search/movie`, {
