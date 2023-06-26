@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getCredits } from "../api/apiMovies";
+import { getCredits } from "../../api/apiMovies";
 import Loader from "../Loader/Loader";
 import { CastItem, CastList } from "./Cast.styled";
 import { Container } from "../App/App.styled";

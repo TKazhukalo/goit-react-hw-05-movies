@@ -1,5 +1,5 @@
-import { getDetails } from "components/api/apiMovies";
-import { Suspense, useEffect, useState } from "react";
+import { getDetails } from "api/apiMovies";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import {  Button, ContainerDetails } from "./MovieDetails.styled";
 import Loader from "components/Loader/Loader";
@@ -8,7 +8,8 @@ import Loader from "components/Loader/Loader";
     const [movie, setMovie] = useState(null);
     const [loading, setLoading] = useState(false);
     const {movieId} = useParams();
-    const location = useLocation();
+        const location = useLocation(); 
+    const BackLink=useRef(location.state?.from ?? '/');    
     useEffect(() => {
         const fetchMovies = async () => {
             setLoading(true);
@@ -43,7 +44,7 @@ const genresList = genres?.map(genre => genre.name).join(', ');
     return (
           <main>
             <div>
-                <Link to={location.state?.from ??'/'}>
+                <Link to={BackLink.current}>
                     <Button type="button">
                 &larr; Go back 
                     </Button>

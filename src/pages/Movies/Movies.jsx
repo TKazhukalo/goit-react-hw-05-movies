@@ -1,6 +1,6 @@
 import Loader from "components/Loader/Loader";
 import { MoviesList } from "components/MoviesList/MoviesList";
-import { searchMovie } from "components/api/apiMovies";
+import { searchMovie } from "api/apiMovies";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { ButtonSearch, SearchQuery } from "./Movies.styled";
