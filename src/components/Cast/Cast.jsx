@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getCredits } from "../../api/apiMovies";
 import Loader from "../Loader/Loader";
-import { CastItem, CastList } from "./Cast.styled";
+import { CastImg, CastItem, CastList } from "./Cast.styled";
 import { Container } from "../App/App.styled";
 
 const Cast = () => {
@@ -30,11 +30,11 @@ const Cast = () => {
         {cast.map(({ id, original_name,name, character, profile_path }) =>(
                     <CastItem key={id}>
                         <h3>{name}</h3>
-                        <img src={
+                        <CastImg src={
                 profile_path
                   ? `https://image.tmdb.org/t/p/w500${profile_path}`
                   : `https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg`
-              } alt={original_name} width='120' />
+              } alt={original_name} width='180' />
                         <p>Character: </p>
                         <p>{character}</p>
                     </CastItem>

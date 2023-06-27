@@ -1,14 +1,15 @@
 import { getDetails } from "api/apiMovies";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
-import {  Button, ContainerDetails } from "./MovieDetails.styled";
+import {  Button, ContainerDetails, ContainerMovie, MovieDetailsLink, MovieDetailsList, MovieImg } from "./MovieDetails.styled";
 import Loader from "components/Loader/Loader";
+
 
     const MovieDetails = () => {
     const [movie, setMovie] = useState(null);
     const [loading, setLoading] = useState(false);
     const {movieId} = useParams();
-        const location = useLocation(); 
+    const location = useLocation(); 
     const BackLink=useRef(location.state?.from ?? '/');    
     useEffect(() => {
         const fetchMovies = async () => {
@@ -50,8 +51,8 @@ const genresList = genres?.map(genre => genre.name).join(', ');
                     </Button>
                 </Link> 
                  {loading && <Loader />}
-                  <div>
-        <img width="250" src={poster_path?`https://image.tmdb.org/t/p/w500${poster_path}`
+                  <ContainerMovie>
+        <MovieImg width="250" src={poster_path?`https://image.tmdb.org/t/p/w500${poster_path}`
                 : `https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg`} alt={title} />
         <ContainerDetails>
           <h2>{title} ({release_date.slice(0, 4)})</h2>
@@ -63,16 +64,16 @@ const genresList = genres?.map(genre => genre.name).join(', ');
             <span>{genresList}</span>
           </p>
         </ContainerDetails>
-      </div>
+      </ContainerMovie>
       <h3>Additional information</h3>
-                <ul>
+                <MovieDetailsList>
                     <li>
-                        <Link to='cast'>Cast</Link>
+                        <MovieDetailsLink to='cast'>Cast</MovieDetailsLink>
                     </li>
                     <li>
-                        <Link to='reviews'>Reviews</Link>
+                        <MovieDetailsLink to='reviews'>Reviews</MovieDetailsLink>
                     </li>
-                </ul>             
+                </MovieDetailsList>             
             </div>
             <Suspense fallback={<div>...Loading</div>}>
                 <Outlet />   

@@ -31,4 +31,7 @@ export const HeaderItem=styled.li`
 export const HeaderItemLink=styled(NavLink)`
    text-decoration:none; 
    color: green;
+    &:hover{
+    color: #adb90a;
+   }
 `

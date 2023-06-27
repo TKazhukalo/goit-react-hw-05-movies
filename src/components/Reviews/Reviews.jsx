@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import { getReviews } from "../../api/apiMovies";
 import Loader from "../Loader/Loader";
-import { ReviewsList } from "./Reviews.styled";
+import { ReviewsList, ReviewsText } from "./Reviews.styled";
 
     const Reviews = () => {
     const { movieId } = useParams();
@@ -35,7 +35,7 @@ import { ReviewsList } from "./Reviews.styled";
                         return (
                             <li key={id}>
                                 <h3>Author : {author}</h3>
-                                <p>{content}</p>
+                                <ReviewsText>{content}</ReviewsText>
                          </li>
                      )
                  })   
