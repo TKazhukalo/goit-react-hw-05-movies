@@ -8,6 +8,8 @@ export const SearchQuery=styled.input`
 export const ButtonSearch=styled.button`
     border: none;
     border-radius:2px;
+    font-family: 'Comfortaa', cursive;
+    font-size: 18px;
     width:100px;
     height:43px;
     font-size:14px;
